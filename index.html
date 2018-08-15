@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ejemplo</title>
+	<style>
+		#zonadestino{
+			margin: 10px;
+  			padding: 10px;
+    		border: 1px solid black;
+    		width:100px;
+    		height:100px;
+    		
+		}
+
+		img{
+			width:100px;
+    		height:100px;
+		}
+		nav{
+			background:#CCCCCC;
+		}
+
+	</style>
+	<script>
+		//draggable = "true" --> Elemento pueda moverse
+		//ondrastar --> llama a la funcion drop(event)
+		//ondragover --> llama a la funcion allowDrop(event)
+		function drag(ev) {
+		//establece el tipo de dato y valor del elemento capturado, en este caso el valor del atributo id
+   		ev.dataTransfer.setData("text", ev.target.id); 
+   		ev.effectAllowed = "copyMove";
+		}
+
+		function allowDrop(ev) {
+   		 ev.preventDefault(); //Evitar la manipulación del navegador de los datos.
+		}
+
+		function drop(ev) {
+    	 ev.preventDefault();
+     	 var id = ev.dataTransfer.getData("text");
+     	 if (id=="1"){
+     	 	var nodeCopy = document.getElementById(id).cloneNode(true);
+   			nodeCopy.id = "1";
+   			ev.target.appendChild(nodeCopy);
+     	 }else if (id=="2"){
+     	 	var nodeCopy = document.getElementById(id).cloneNode(true);
+   			nodeCopy.id = "2";
+   			ev.target.appendChild(nodeCopy);
+     	 }else if (id=="3"){
+     	 	var nodeCopy = document.getElementById(id).cloneNode(true);
+   			nodeCopy.id = "3";
+   			ev.target.appendChild(nodeCopy);
+     	 }
+
+
+   		 Pedido();
+		}
+		
+
+
+		function Pedido(){
+			var Producto = document.getElementsByClassName("juegos");
+			
+			for(var i=0;i<Producto.length; i++){
+				if(Producto[i].getAttribute("id")==1){
+					document.getElementById("resultado").innerHTML = "Compra juego = Splatoon 2"; 
+
+				}else if (Producto[i].getAttribute("id")==2){
+					document.getElementById("resultado").innerHTML = "Compra juego = Super Mario Odyssey"; 
+
+				}else if (Producto[i].getAttribute("id")==3){
+					document.getElementById("resultado").innerHTML = "Compra juego = Zelda Breath of Wild ";  
+
+				}
+			}
+		}
+		
+	</script>
+</head>
+<body>
+	
+	<figure class="responsive">
+      	<img name="100" id ="1" class="juegos" src="descarga.jpg" alt="Splatoon 2" draggable="true" 
+      	ondragstart="drag(event)">
+   			<figcaption>Nintendo Switch Splatoon 2</figcaption>
+   			<figcaption>Q.699.00</figcaption>
+   	</figure>
+	
+	<figure class="responsive">
+      	<img  name="2" class="juegos" id ="2" src="descarga1.jpg" alt="Super Mario Odyssey" draggable="true"     ondragstart="drag(event)" >
+   			<figcaption>Nintendo Switch Super Mario Odyssey</figcaption>
+   			<figcaption>Q.699.00</figcaption>
+   	</figure>
+
+	<figure class="responsive">
+      	<img  name="3" class="juegos" id ="3" src="descarga2.jpg" alt="Zelda Breath of Wild" draggable="true"    ondragstart="drag(event)">
+   			<figcaption>Nintendo Switch Zelda Breath of Wild</figcaption>
+   			<figcaption>Q.699.00</figcaption>
+   	</figure>
+
+			
+   	<nav id="carrito" ondrop="drop(event)" ondragover="allowDrop(event)">
+     	 <figure class="padre" >
+			<img src="compra.png"  id="compra">
+      	 </figure>
+	</nav>
+
+	<label id="resultado">
+		
+	</label>	
+		
+	</section>
+</body>
+</html>
